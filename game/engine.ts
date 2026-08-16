@@ -1,7 +1,12 @@
+import { GamepadIcon } from "lucide-react";
 import type { Coord, ShipName, Ship, PlayerID, PlayerState, Phase, ShipSpec, GameConfig, GameState }
 from "./types.ts"
 export type Orientation = "H" | "V";
 
+
+///////////////////////////////////////////////
+//            BASE CORE FUNCTIONS            //
+///////////////////////////////////////////////
 
 // obliger de comparer x et y car si on fait a === b on compare l identite pas le contenu
 export function sameCoord(a: Coord, b: Coord): boolean {
@@ -32,8 +37,8 @@ export function buildPositions(start: Coord, length: number, dir: Orientation): 
 }
 
 // return l id du player qui doit faire l action (tirer par exemple)
-export function opponentof(id: PlayerID): PlayerID {
-	return id === "P1" ? "P2" : "P1";
+export function opponentOf(id: PlayerID): PlayerID {
+	return id === "P2" ? "P1" : "P2";
 }
 
 // la fonction find prend un tableau et en gros la je met p et ca va appeler la fonction pour chaque element du tableau
@@ -48,5 +53,31 @@ export function getPlayer(state: GameState, id: PlayerID): PlayerState
 }
 
 
+///////////////////////////////////////////////
+//               DEFAULT CONFIG              //
+///////////////////////////////////////////////
 
+export const DEFAULT_CONFIG: GameConfig = {
+	boardSize: 10,
+	fleet: [
+		{name: "carrier", len: 5},
+		{name: "battleship", len: 4},
+		{name: "cruiser", len: 3},
+		{name: "submarine", len: 3},
+		{name: "destroyer", len: 2},
+	],
+};
 
+export function createGame(config: GameConfig, first: PlayerID = "P1"): GameState
+{
+	return{
+		config: config,
+		phase: "Placement",
+		players: [
+			{playerID: "P1", ships: [], shotsReceived: []},
+			{playerID: "P2", ships: [], shotsReceived: []},
+		],
+		turn: first,
+		winner: null,
+	}
+}
