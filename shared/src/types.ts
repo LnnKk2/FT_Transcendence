@@ -26,3 +26,5 @@ export type GameState = {
 	winner: PlayerID | null};
 
 export type ShotResult = "miss" | "hit" | "sunk";
+
+export type Orientation = "H" | "V";

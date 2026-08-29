@@ -1,29 +1,11 @@
-import type { GameState, PlayerID, Coord } from "./types.ts";
+import type { GameState, PlayerID, Coord } from "../src/types.ts";
 import {
-	sameCoord,
-	contains,
-	isInside,
-	buildPositions,
-	opponentOf,
-	getPlayer,
-	DEFAULT_CONFIG,
-	createGame,
-} from "./engine.ts";
+	sameCoord, contains, isInside, buildPositions, opponentOf, getPlayer,
+	DEFAULT_CONFIG, createGame,
+} from "../src/index.ts";
+import { check } from "./check.ts";
 
-let passed = 0;
-let failed = 0;
 
-function check(label: string, actual: unknown, expected: unknown): void {
-	const a = JSON.stringify(actual);
-	const e = JSON.stringify(expected);
-	if (a === e) {
-		passed++;
-		console.log(`OK   ${label}`);
-	} else {
-		failed++;
-		console.log(`FAIL ${label} | attendu ${e} | obtenu ${a}`);
-	}
-}
 
 // --- un etat de partie ecrit a la main ---
 const state: GameState = {
@@ -143,4 +125,4 @@ check("2 parties = 2 listes de navires distinctes",
 check("P1 et P2 ne partagent pas leur liste",
 	g1.players[0].ships === g1.players[1].ships, false);
 
-console.log(`\n${passed} OK, ${failed} FAIL`);
+/////////////////////////////////////////
