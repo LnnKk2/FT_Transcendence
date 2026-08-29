@@ -1,0 +1,8 @@
+{
+  "name": "ft_transcendence",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node shared/tests/run.ts"
+  }
+}
