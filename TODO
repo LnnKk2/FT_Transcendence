@@ -1,0 +1,4 @@
+faire evoluer le type boolean de retour dans le moteur de jeu en un union
+-> permet de retourner un message clair a la place de oui / non
+
+exemple : type StartResult = "ok" | "wrong-phase" | "P1-not-ready" | "P2-not-ready";

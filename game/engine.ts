@@ -140,3 +140,14 @@ export function isFleetComplete(state: GameState, id: PlayerID): boolean
 	return state.config.fleet.every((spec) => isPlaced(player, spec.name));
 }
 
+export function startPlaying(state: GameState): boolean
+{
+	if(state.phase !== "Placement")
+		return false;
+	if(isFleetComplete(state, "P1") === false)
+		return false;
+	if(isFleetComplete(state, "P2") === false)
+		return false;
+	state.phase = "Playing";
+	return true;
+}

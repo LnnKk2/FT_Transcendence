@@ -24,3 +24,5 @@ export type GameState = {
 	players: PlayerState[],
 	turn: PlayerID,
 	winner: PlayerID | null};
+
+export type ShotResult = "miss" | "hit" | "sunk";
