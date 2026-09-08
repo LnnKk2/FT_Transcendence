@@ -28,12 +28,13 @@ export function fireAt(state: GameState, shooter: PlayerID, shot: Coord): ShotRe
 	const ship = shipAt(opponent, shot);
 	let result: ShotResult;
 	if(ship === undefined)
-		result = "miss";
+		result = {status: "miss"};
 	else if(isSunk(ship, opponent.shotsReceived))
-		result = "sunk";
+		// [...ship.positions] : une COPIE, pour ne pas exposer le tableau du GameState
+		result = {status: "sunk", name: ship.name, positions: [...ship.positions]};
 	else
-		result = "hit";
-	if(result === "sunk" && (opponent.ships.every((s) => isSunk(s, opponent.shotsReceived) === true)))
+		result = {status: "hit"};
+	if(result.status === "sunk" && (opponent.ships.every((s) => isSunk(s, opponent.shotsReceived) === true)))
 	{
 		state.phase = "Finished";
 		state.winner = shooter;

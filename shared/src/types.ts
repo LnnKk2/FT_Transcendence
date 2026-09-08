@@ -25,6 +25,10 @@ export type GameState = {
 	turn: PlayerID,
 	winner: PlayerID | null};
 
-export type ShotResult = "miss" | "hit" | "sunk";
+export type ShotResult =
+	| {status: "miss"}
+	| {status: "hit"}
+	| {status: "sunk", name: ShipName, positions: Coord[]};
+
 
 export type Orientation = "H" | "V";
