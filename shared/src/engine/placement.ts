@@ -68,3 +68,39 @@ export function startPlaying(state: GameState): boolean
 	state.phase = "Playing";
 	return true;
 }
+
+// nombre d essais maximum pour UN bateau avant d abandonner.
+// sans ce garde-fou, un bateau qui ne rentre plus nulle part boucle a l infini.
+const MAX_TRY = 500;
+
+// pose toute la flotte du joueur au hasard.
+// pour chaque bateau on retire une case + une orientation tant que placeShip refuse.
+// renvoie false si un bateau n a pas trouve de place : la grille est alors
+// incomplete, a l appelant de repartir d un createGame neuf.
+export function placeRandomFleet(state: GameState, id: PlayerID): boolean
+{
+	// boucle 1 : les bateaux a poser, un par un (5 tours)
+	for(const spec of state.config.fleet)
+	{
+		let pose = false;
+		let tries = 0;
+		// boucle 2 : on retente ce MEME bateau jusqu a ce que ca passe
+		while(pose === false)
+		{
+			if(tries >= MAX_TRY)
+				return false;
+			tries++;
+			// Math.floor(Math.random() * boardSize) -> un entier de 0 a boardSize - 1
+			const start: Coord = {
+				x: Math.floor(Math.random() * state.config.boardSize),
+				y: Math.floor(Math.random() * state.config.boardSize),
+			};
+			// en gros si < 0,5 c est H, sinon V
+			// random pour choisir la direction dans laquelle on place
+			const dir: Orientation = Math.random() < 0.5 ? "H" : "V";
+			// placeShip appelle deja canPlace : s il refuse, on retente
+			pose = placeShip(state, id, spec.name, start, dir);
+		}
+	}
+	return true;
+}
