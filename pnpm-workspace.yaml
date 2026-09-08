@@ -1,0 +1,9 @@
+packages:
+  - shared
+  - front
+
+# recopie depuis front/pnpm-workspace.yaml : ces paquets ne compilent pas
+# leurs binaires natifs a l'installation
+allowBuilds:
+  sharp: false
+  unrs-resolver: false

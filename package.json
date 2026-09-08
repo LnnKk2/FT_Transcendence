@@ -3,6 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node shared/tests/run.ts"
+    "test": "node shared/tests/run.ts",
+    "typecheck": "pnpm -r typecheck",
+    "build": "pnpm --filter @transcendance/front --stream build",
+    "dev": "pnpm --filter @transcendance/front --stream dev"
   }
 }
