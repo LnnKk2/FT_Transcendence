@@ -32,3 +32,17 @@ export type ShotResult =
 
 
 export type Orientation = "H" | "V";
+
+/* ── vue : ce qu un joueur a le droit de voir, pas l etat complet ── */
+
+// "unknown" n existe que sur la grille adverse : case jamais visee.
+// "empty" et "ship" n existent que sur MA grille.
+export type CellView = "unknown" | "empty" | "ship" | "miss" | "hit" | "sunk";
+
+export type GameView = {
+	me: PlayerID,
+	myBoard: CellView[][],
+	enemyBoard: CellView[][],
+	phase: Phase,
+	myTurn: boolean,
+	winner: PlayerID | null};

@@ -2,6 +2,7 @@
 import "./core.test.ts";
 import "./placement.test.ts";
 import "./firing.test.ts";
+import "./view.test.ts";
 import { report } from "./check.ts";
 
 report();
