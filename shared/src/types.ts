@@ -25,6 +25,24 @@ export type GameState = {
 	turn: PlayerID,
 	winner: PlayerID | null};
 
-export type ShotResult = "miss" | "hit" | "sunk";
+export type ShotResult =
+	| {status: "miss"}
+	| {status: "hit"}
+	| {status: "sunk", name: ShipName, positions: Coord[]};
+
 
 export type Orientation = "H" | "V";
+
+/* ── vue : ce qu un joueur a le droit de voir, pas l etat complet ── */
+
+// "unknown" n existe que sur la grille adverse : case jamais visee.
+// "empty" et "ship" n existent que sur MA grille.
+export type CellView = "unknown" | "empty" | "ship" | "miss" | "hit" | "sunk";
+
+export type GameView = {
+	me: PlayerID,
+	myBoard: CellView[][],
+	enemyBoard: CellView[][],
+	phase: Phase,
+	myTurn: boolean,
+	winner: PlayerID | null};

@@ -3,3 +3,4 @@ export * from "./core.ts";
 export * from "./config.ts";
 export * from "./placement.ts";
 export * from "./firing.ts";
+export * from "./view.ts";
